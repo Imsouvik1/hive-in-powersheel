@@ -1,0 +1,85 @@
+Windows PowerShell
+Copyright (C) Microsoft Corporation. All rights reserved.
+
+Install the latest PowerShell for new features and improvements! https://aka.ms/PSWindows
+
+PS C:\Users\souvi>   docker exec -it hive-server bash
+root@f5ce42e7b613:/opt# hive
+SLF4J: Class path contains multiple SLF4J bindings.
+SLF4J: Found binding in [jar:file:/opt/hive/lib/log4j-slf4j-impl-2.6.2.jar!/org/slf4j/impl/StaticLoggerBinder.class]
+SLF4J: Found binding in [jar:file:/opt/hadoop-2.7.4/share/hadoop/common/lib/slf4j-log4j12-1.7.10.jar!/org/slf4j/impl/StaticLoggerBinder.class]
+SLF4J: See http://www.slf4j.org/codes.html#multiple_bindings for an explanation.
+SLF4J: Actual binding is of type [org.apache.logging.slf4j.Log4jLoggerFactory]
+
+Logging initialized using configuration in file:/opt/hive/conf/hive-log4j2.properties Async: true
+Hive-on-MR is deprecated in Hive 2 and may not be available in the future versions. Consider using a different execution engine (i.e. spark, tez) or using Hive 1.X releases.
+hive> show databases;
+OK
+default
+hive_db
+hive_prac
+openbeer
+Time taken: 3.966 seconds, Fetched: 4 row(s)
+hive> create database hive_db;
+FAILED: Execution Error, return code 1 from org.apache.hadoop.hive.ql.exec.DDLTask. Database hive_db already exists
+hive> use hive_db;
+OK
+Time taken: 0.094 seconds
+hive> show tables;
+OK
+department_data
+Time taken: 0.131 seconds, Fetched: 1 row(s)
+hive> select * from department_data;
+OK
+Time taken: 3.184 seconds
+hive> describe formatted department_data
+    > ;
+OK
+# col_name              data_type               comment
+
+dept_id                 int
+dept_name               string
+manager_id              int
+salary                  int
+
+# Detailed Table Information
+Database:               hive_db
+Owner:                  root
+CreateTime:             Thu Feb 16 06:54:12 UTC 2023
+LastAccessTime:         UNKNOWN
+Retention:              0
+Location:               hdfs://namenode:9000/user/hive/warehouse/hive_db.db/department_data
+Table Type:             MANAGED_TABLE
+Table Parameters:
+        COLUMN_STATS_ACCURATE   {\"BASIC_STATS\":\"true\"}
+        numFiles                0
+        numRows                 0
+        rawDataSize             0
+        totalSize               0
+        transient_lastDdlTime   1676530452
+
+# Storage Information
+SerDe Library:          org.apache.hadoop.hive.serde2.lazy.LazySimpleSerDe
+InputFormat:            org.apache.hadoop.mapred.TextInputFormat
+OutputFormat:           org.apache.hadoop.hive.ql.io.HiveIgnoreKeyTextOutputFormat
+Compressed:             No
+Num Buckets:            -1
+Bucket Columns:         []
+Sort Columns:           []
+Storage Desc Params:
+        field.delim             ,
+        serialization.format    ,
+Time taken: 1.008 seconds, Fetched: 34 row(s)
+hive> load data inpath '/data_files/depart_data.csv' into table department_data;
+Loading data to table hive_db.department_data
+OK
+Time taken: 7.571 seconds
+hive> select * from department_data limit 5;
+OK
+10      Administration  200     1700
+20      Marketing       201     1800
+30      Purchasing      114     1700
+40      Human Resources 203     2400
+50      Shipping        121     1500
+Time taken: 0.551 seconds, Fetched: 5 row(s)
+hive>
