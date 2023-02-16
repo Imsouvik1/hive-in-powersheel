@@ -1,0 +1,53 @@
+Windows PowerShell
+Copyright (C) Microsoft Corporation. All rights reserved.
+
+Install the latest PowerShell for new features and improvements! https://aka.ms/PSWindows
+
+PS C:\Users\souvi> docker container ls
+CONTAINER ID   IMAGE                                                    COMMAND                  CREATED        STATUS                   PORTS                                                      NAMES
+e2274113153f   bde2020/spark-worker:3.0.0-hadoop3.2                     "/bin/bash /worker.sh"   32 hours ago   Up 8 minutes             0.0.0.0:8081->8081/tcp                                     spark-worker-1
+f9accc867127   bde2020/spark-master:3.0.0-hadoop3.2                     "/bin/bash /master.sh"   32 hours ago   Up 8 minutes             0.0.0.0:7077->7077/tcp, 6066/tcp, 0.0.0.0:8080->8080/tcp   spark-master
+f5ce42e7b613   bde2020/hive:2.3.2-postgresql-metastore                  "entrypoint.sh /bin/…"   32 hours ago   Up 8 minutes             0.0.0.0:10000->10000/tcp, 10002/tcp                        hive-server
+27ce2e9003c2   bde2020/hive-metastore-postgresql:2.3.0                  "/docker-entrypoint.…"   32 hours ago   Up 8 minutes             5432/tcp                                                   hive-metastore-postgresql
+773bb6858509   bde2020/hadoop-historyserver:2.0.0-hadoop3.2.1-java8     "/entrypoint.sh /run…"   32 hours ago   Up 8 minutes (healthy)   8188/tcp                                                   historyserver
+d580499e8090   bde2020/hadoop-namenode:2.0.0-hadoop3.2.1-java8          "/entrypoint.sh /run…"   32 hours ago   Up 8 minutes (healthy)   0.0.0.0:9870->9870/tcp, 0.0.0.0:9010->9000/tcp             namenode
+b6ecfd83f5fb   bde2020/hadoop-resourcemanager:2.0.0-hadoop3.2.1-java8   "/entrypoint.sh /run…"   32 hours ago   Up 8 minutes (healthy)   8088/tcp                                                   resourcemanager
+5a52caa8e945   bde2020/hadoop-nodemanager:2.0.0-hadoop3.2.1-java8       "/entrypoint.sh /run…"   32 hours ago   Up 8 minutes (healthy)   8042/tcp                                                   nodemanager
+0cb4939a20eb   shawnzhu/prestodb:0.181                                  "./bin/launcher run"     32 hours ago   Up 8 minutes             8080/tcp, 0.0.0.0:8089->8089/tcp                           presto-coordinator
+b39f25a18289   bde2020/hadoop-datanode:2.0.0-hadoop3.2.1-java8          "/entrypoint.sh /run…"   32 hours ago   Up 8 minutes (healthy)   0.0.0.0:9864->9864/tcp                                     datanode
+5cf675a81afe   bde2020/hive:2.3.2-postgresql-metastore                  "entrypoint.sh /opt/…"   32 hours ago   Up 8 minutes             10000/tcp, 0.0.0.0:9083->9083/tcp, 10002/tcp               hive-metastore
+PS C:\Users\souvi> docker exec -it datanode bash
+root@b39f25a18289:/# ls -ltr
+total 412
+drwxr-xr-x   2 root root   4096 Sep  8  2019 home
+drwxr-xr-x   2 root root   4096 Sep  8  2019 boot
+drwxr-xr-x   1 root root   4096 Jan 30  2020 var
+drwxr-xr-x   1 root root   4096 Jan 30  2020 usr
+drwxr-xr-x   2 root root   4096 Jan 30  2020 srv
+drwxr-xr-x   3 root root   4096 Jan 30  2020 run
+drwxr-xr-x   2 root root   4096 Jan 30  2020 mnt
+drwxr-xr-x   2 root root   4096 Jan 30  2020 media
+drwxr-xr-x   2 root root   4096 Jan 30  2020 lib64
+drwxr-xr-x   1 root root   4096 Jan 30  2020 lib
+-rwxr-xr-x   1 root root   4155 Feb  4  2020 entrypoint.sh
+drwxr-xr-x   1 root root   4096 Feb  4  2020 sbin
+drwxr-xr-x   1 root root   4096 Feb  4  2020 bin
+-rw-r--r--   1 root root 325083 Feb  4  2020 KEYS
+drwx------   1 root root   4096 Feb  4  2020 root
+drwxr-xr-x   1 root root   4096 Feb  4  2020 opt
+drwxr-xr-x   2 root root   4096 Feb  4  2020 hadoop-data
+-rwxr-xr-x   1 root root    236 Feb  4  2020 run.sh
+drwxr-xr-x   3 root root   4096 Feb  4  2020 hadoop
+drwxr-xr-x   1 root root   4096 Feb 15 07:53 etc
+dr-xr-xr-x  11 root root      0 Feb 16 15:40 sys
+dr-xr-xr-x 695 root root      0 Feb 16 15:40 proc
+drwxr-xr-x   5 root root    340 Feb 16 15:40 dev
+drwxrwxrwt   1 root root   4096 Feb 16 15:40 tmp
+root@b39f25a18289:/# hadoop fs -ls /
+Found 5 items
+drwxr-xr-x   - root supergroup          0 2023-02-16 06:51 /data
+drwxr-xr-x   - root supergroup          0 2023-02-15 18:46 /data_files
+drwxr-xr-x   - root supergroup          0 2023-02-15 07:58 /rmstate
+drwxrwxr-x   - root supergroup          0 2023-02-15 07:59 /tmp
+drwxr-xr-x   - root supergroup          0 2023-02-15 07:59 /user
+root@b39f25a18289:/#
